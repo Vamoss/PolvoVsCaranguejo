@@ -7,6 +7,9 @@ public class PolvoNetworkManager : MonoBehaviour {
 	public string registeredName = "PolvoVsCaranguejo";
 
 	public NetworkPlayer thisPlayer;
+	public bool isTentacle = false;
+
+	public PolvoTentacle[] tentacles;
 	private void StartServer () {
 		Network.InitializeServer(100, 1337, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(registeredName, "Polvo Vs. Caranguejo");
@@ -19,8 +22,23 @@ public class PolvoNetworkManager : MonoBehaviour {
 		}
 	}
 
+	void OnConnectedToServer() {
+		thisPlayer = Network.player;
+		GetComponent<NetworkView>().RPC("makePlayer", RPCMode.Server, thisPlayer);
+	}
+
 	[RPC]
 	void makePlayer(NetworkPlayer player) {
+
+	}
+
+	[RPC]
+	void setTentacleForPlayer(NetworkViewID playerID, int tentacle) {
+
+	}
+
+	[RPC]
+	void movePlayer(NetworkPlayer player) {
 
 	}
 
